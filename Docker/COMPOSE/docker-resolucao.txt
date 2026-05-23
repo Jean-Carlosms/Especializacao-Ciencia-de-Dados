@@ -1,0 +1,15 @@
+Verificando conteiners abertos:
+docker ps -a
+
+Entrando no diretorio lab_completo docker:
+cd /mnt/c/docker/lab_completo_docker
+
+Executando o comando docker compose para ligar os containers:
+docker compose up -d
+
+Verificando conteiners abertos:
+docker ps -a
+
+Desligando os containers com o comando docker compose:
+docker compose down
+

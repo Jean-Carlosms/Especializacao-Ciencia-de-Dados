@@ -1,0 +1,55 @@
+Verificando conteiners abertos:
+docker ps -a
+
+verificando as images disponiveis:
+docker images
+
+Entrando no diretorio lab_completo docker:
+cd /mnt/c/docker/lab_completo_docker
+
+Verificando as pastas dentro do diretório:
+ls
+
+baixando a imagem mongo última versão:
+docker pull mongo
+
+verificando as imagens:
+docker images
+
+baixando a imagem mongo-express última versão:
+docker pull mongo-express
+
+Criando uma rede chamada mongo_network:
+docker network create --driver bridge mongo_network
+
+Verificando as redes existentes:
+docker network ls
+
+Criando uma volume chamado mongo_volume:
+docker volume create mongo_volume
+
+container mongo
+docker run -d -p 27017:27017 \
+--name mongo \
+-v mongo_volume:/data/db \
+-e MONGO_INITDB_PASSWORD='init_pass' \
+-e MONGO_INITDB_DATABASE='init_db' \
+-e MONGO_INITDB_USERNAME='root_user' \
+-e MONGO_INITDB_ROOT_USERNAME='root_user' \
+-e MONGO_INITDB_ROOT_PASSWORD='root_pass' \
+--network mongo_network mongo
+
+
+
+container  mongo-express
+docker run -d -p 8081:8081 \
+--name mongo-express \
+-e ME_CONFIG_MONGODB_SERVER='mongo' \
+-e ME_CONFIG_BASICAUTH_USERNAME='express_user' \
+-e ME_CONFIG_BASICAUTH_PASSWORD='express_pass' \
+-e ME_CONFIG_MONGODB_ADMINUSERNAME='root_user' \
+-e ME_CONFIG_MONGODB_ADMINPASSWORD='root_pass' \
+--network mongo_network mongo-express
+
+Verificando os containers para printar:
+docker ps -a
